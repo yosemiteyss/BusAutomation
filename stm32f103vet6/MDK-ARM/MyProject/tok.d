@@ -1,0 +1,10 @@
+myproject\tok.o: ..\Src\nmea\tok.c
+myproject\tok.o: ..\Src\nmea\tok.h
+myproject\tok.o: ..\Src\nmea\config.h
+myproject\tok.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\assert.h
+myproject\tok.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdarg.h
+myproject\tok.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
+myproject\tok.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
+myproject\tok.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\ctype.h
+myproject\tok.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+myproject\tok.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\limits.h
