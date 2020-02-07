@@ -1,2 +1,2 @@
-# ELEC3300 Project
+# BusAutomation
 Fall 2019
