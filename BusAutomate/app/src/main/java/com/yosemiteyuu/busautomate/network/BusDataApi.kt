@@ -7,5 +7,4 @@ interface BusDataApi {
 
     @GET("data")
     suspend fun getBusData(): BusData
-
 }

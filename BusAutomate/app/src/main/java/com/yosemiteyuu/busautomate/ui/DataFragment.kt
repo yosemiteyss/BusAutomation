@@ -1,64 +1,49 @@
 package com.yosemiteyuu.busautomate.ui
 
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.yosemiteyuu.busautomate.R
 import com.yosemiteyuu.busautomate.network.Resource
-import kotlinx.android.synthetic.main.fragment_data.view.*
+import kotlinx.android.synthetic.main.fragment_data.*
 
-class DataFragment : Fragment() {
+class DataFragment : Fragment(R.layout.fragment_data) {
 
     private lateinit var mainViewModel: MainViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        activity?.let {
-            mainViewModel = ViewModelProvider(it).get(MainViewModel::class.java)
-        }
+        mainViewModel = ViewModelProvider(requireActivity())
+            .get(MainViewModel::class.java)
 
         mainViewModel.getBusData()
-
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater,
-        container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        val rootView = inflater.inflate(R.layout.fragment_data, container, false)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
-        mainViewModel.busData.removeObservers(this)
+        mainViewModel.busData.observe(viewLifecycleOwner, Observer {
+            if (it.status == Resource.Status.SUCCESS) {
+                it.data?.let { busData ->
+                    temp_textView.text = busData.temp.toString()
+                    humidity_textView.text = busData.humidity.toString()
+                    light_textView.text = busData.light.toString()
+                    seats_textView.text = busData.seats.toString()
 
-        mainViewModel.busData.observe(this, Observer {
-            if (it != null) {
-                if (it.status == Resource.Status.SUCCESS) {
-                    it.data?.let { busData ->
-                        rootView.temp_textView.text = busData.temp.toString()
-                        rootView.humidity_textView.text = busData.humidity.toString()
-                        rootView.light_textView.text = busData.light.toString()
-                        rootView.seats_textView.text = busData.seats.toString()
-
-                        rootView.seat1_view.setBackgroundColor(
-                            if (busData.seat1 == 1) mainViewModel.greenColor else mainViewModel.redColor)
-
-                        rootView.seat2_view.setBackgroundColor(
-                            if (busData.seat2 == 1) mainViewModel.greenColor else mainViewModel.redColor )
-
-                        rootView.seat3_view.setBackgroundColor(
-                            if (busData.seat3 == 1) mainViewModel.greenColor else mainViewModel.redColor )
-                    }
+                    seat1_view.setBackgroundColor(getSeatColor(busData.seat1))
+                    seat2_view.setBackgroundColor(getSeatColor(busData.seat2))
+                    seat3_view.setBackgroundColor(getSeatColor(busData.seat3))
                 }
             }
         })
+    }
 
-        return rootView
+    private fun getSeatColor(available: Int?): Int {
+        return if (available == 1)
+            mainViewModel.greenColor else mainViewModel.redColor
     }
 
     companion object {

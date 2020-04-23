@@ -22,11 +22,10 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
     )
 
     private val _busData = MutableLiveData<Resource<BusData>>()
-
     val busData: LiveData<Resource<BusData>>
         get() = _busData
 
-    private var fetchJob: Job? = null
+    var fetchJob: Job? = null
 
     private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
         _busData.postValue(
@@ -40,26 +39,19 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
                 "Failed to get data: $throwable"))
     }
 
-
     fun getBusData() {
         fetchJob?.cancel()
 
         fetchJob = viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
-
             while (true) {
-                _busData.postValue(
-                    Resource.success(busDataApi?.getBusData())
-                )
-
+                _busData.postValue(Resource.success(busDataApi?.getBusData()))
                 delay(fetchDelay)
             }
         }
     }
 
     companion object {
-
         private const val fetchDelay = 2000L
-
         private val busDataApi: BusDataApi? = Retrofit.Builder()
             .baseUrl("http://192.168.1.41:3000/")
             .addConverterFactory(GsonConverterFactory.create())

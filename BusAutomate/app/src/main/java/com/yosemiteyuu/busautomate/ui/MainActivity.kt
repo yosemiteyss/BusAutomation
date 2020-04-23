@@ -15,43 +15,28 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var mainViewModel: MainViewModel
 
-    private lateinit var mainPagerAdapter: MainPagerAdapter
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
 
-        mainPagerAdapter = MainPagerAdapter(supportFragmentManager)
-
-        main_viewPager.adapter = mainPagerAdapter
-
-        main_viewPager.addOnPageChangeListener(
-            TabLayout.TabLayoutOnPageChangeListener(main_tabLayout)
-        )
-
-        main_tabLayout.addOnTabSelectedListener(
-            TabLayout.ViewPagerOnTabSelectedListener(main_viewPager)
-        )
-
+        main_viewPager.adapter = MainPagerAdapter(supportFragmentManager)
+        main_tabLayout.setupWithViewPager(main_viewPager)
 
         mainViewModel.busData.observe(this, Observer {
-            if (it != null) {
-                when (it.status) {
-                    Resource.Status.LOADING -> { }
-
-                    Resource.Status.SUCCESS -> {
-                        Toast.makeText(this, "Success", Toast.LENGTH_SHORT)
-                            .show()
-                    }
-
-                    Resource.Status.ERROR -> {
-                        Toast.makeText(this, "Error: ${it.message}", Toast.LENGTH_SHORT)
-                            .show()
-                    }
-                }
+            when (it.status) {
+                Resource.Status.LOADING -> { }
+                Resource.Status.SUCCESS -> Toast.makeText(this, "Success", Toast.LENGTH_SHORT).show()
+                Resource.Status.ERROR -> Toast.makeText(this, "Error: ${it.message}", Toast.LENGTH_SHORT).show()
             }
         })
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (mainViewModel.fetchJob?.isActive == false) {
+            mainViewModel.getBusData()
+        }
     }
 }
