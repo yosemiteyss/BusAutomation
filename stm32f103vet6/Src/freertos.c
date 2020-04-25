@@ -50,27 +50,27 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
-#define WEIGHT_MAX 					8700000
-#define	LIGHT_THRES					60
+#define WEIGHT_MAX 				8700000
+#define	LIGHT_THRES				60
 #define RFID_CARD_ID 				"4A789303"
 
-#define LOCALAP_SSID				"kefi234"
-#define LOCALAP_PW					"Wtf67681436"
-#define LOCALHOST_IP				"192.168.1.41"
-#define LOCALHOST_PORT			"3000"
+#define LOCALAP_SSID				""
+#define LOCALAP_PW				""
+#define LOCALHOST_IP				""
+#define LOCALHOST_PORT				""
 
 #define HTTP_MAX_LEN				250																				// 104
 #define HTTP_DATA_LEN				140																				// 133
-#define HTTP_GET						"GET /data HTTP/1.1\n"
-#define HTTP_POST						"POST /data HTTP/1.1\r\n" \
-														"Host: %s:%s\r\n" \
-														"Content-Type: application/json\r\n" \
-														"Content-Length: %d\r\n\r\n" \
-														"%s\n"
+#define HTTP_GET				"GET /data HTTP/1.1\n"
+#define HTTP_POST				"POST /data HTTP/1.1\r\n" \
+						"Host: %s:%s\r\n" \
+						"Content-Type: application/json\r\n" \
+						"Content-Length: %d\r\n\r\n" \
+						"%s\n"
 				
-#define HTTP_DATA 					"{\"temp\":\"%d.%d\",\"humidity\":\"%d.%d\"," \
-														"\"light\":\"%u\",\"seats\":\"%d\",\"seat1\":\"%d\"," \
-														"\"seat2\":\"%d\",\"seat3\":\"%d\",\"lat\":\"%f\",\"lon\":\"%f\"}"
+#define HTTP_DATA 				"{\"temp\":\"%d.%d\",\"humidity\":\"%d.%d\"," \
+						"\"light\":\"%u\",\"seats\":\"%d\",\"seat1\":\"%d\"," \
+						"\"seat2\":\"%d\",\"seat3\":\"%d\",\"lat\":\"%f\",\"lon\":\"%f\"}"
 
 
 //#define	TASK1_DEBUG					1
