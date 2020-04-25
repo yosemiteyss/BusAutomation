@@ -57,7 +57,7 @@
 #define LOCALAP_SSID				""
 #define LOCALAP_PW				""
 #define LOCALHOST_IP				""
-#define LOCALHOST_PORT				""
+#define LOCALHOST_PORT				"3000"
 
 #define HTTP_MAX_LEN				250																				// 104
 #define HTTP_DATA_LEN				140																				// 133
