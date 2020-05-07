@@ -1,5 +1,5 @@
 # BusAutomation
-A STM32 project with FreeRTOS and JSON API support.
+A STM32 project with FreeRTOS and JSON API support for ELEC3300.
 
 ## Functions
 - Detect room temperature and humidity
